@@ -64,3 +64,9 @@ PPP_Robot/
 ├── move_to_position.m
 
 ├── ppp_dynamics.m
+
+
+## Workspace
+<img width="474" height="425" alt="image" src="https://github.com/user-attachments/assets/ed1970de-5639-4122-ba22-46ae3408226f" />
+
+ 
