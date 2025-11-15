@@ -11,6 +11,13 @@ This repository contains the kinematic and (optionally) dynamic models for a cus
   - First axis (**Z**) translates along the **Y-axis** (vertical motion)
   - Second axis (**Y**) translates along the **X-axis** (horizontal motion)
   - Third axis (**X**) translates along the **Z-axis** (depth motion)
+
+<img width="499" height="494" alt="image" src="https://github.com/user-attachments/assets/89ffa2b1-af5e-40ec-b161-73b38fb10e99" />
+
+## Workspace
+<img width="474" height="425" alt="image" src="https://github.com/user-attachments/assets/ed1970de-5639-4122-ba22-46ae3408226f" />
+
+ 
 - **End-effector:** Two-finger gripper  
   > *Note: The gripper does not affect direct kinematics but may influence dynamics if its mass is modeled.*
 
@@ -27,7 +34,8 @@ This repository contains the kinematic and (optionally) dynamic models for a cus
 ### 2. End-Effector Position
 
 
-[x; y; z] = [q2; q1; q3]
+<img width="147" height="79" alt="image" src="https://github.com/user-attachments/assets/4cd83773-96e0-4125-adaa-607896ac5491" />
+
 ### 3. Homogeneous Transformation Matrix
 
   <img width="220" height="110" alt="image" src="https://github.com/user-attachments/assets/5f5b2800-8dd3-463f-93cf-b40afcebc7d5" />
