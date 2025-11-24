@@ -1,0 +1,85 @@
+Integer Tokens
+Integer Blocks
+Integer TokenRow
+Integer TokenCol
+Integer BlockRow
+Integer BlockCol
+Double TokenHeight
+Double BlockHeight
+
+Function main
+
+	Motor On
+	Power High
+	Speed 30
+	Accel 30, 30
+	SpeedS 1300
+	AccelS 5000
+	Tool 1
+
+	Tokens = 3
+	Blocks = 3
+	TokenHeight = 6.0
+	BlockHeight = 6.0
+
+	Pallet 1, Local_Tray_Base, P20, P21, 2, 3
+	Pallet 2, Local_Infeed, P23, P22, 1, 2
+
+	Integer TokenID
+	Integer BlockID
+
+	Go Retract_Safe
+
+	For TokenID = 1 To Tokens
+		TokenRow = 2
+		TokenCol = TokenID
+		Pick_Tray_Token()
+		Place_Infeed_Token()
+	Next TokenID
+
+	For BlockID = 1 To Blocks
+		BlockRow = 1
+		BlockCol = BlockID
+		Pick_Tray_Block()
+		Place_Infeed_Block()
+	Next BlockID
+
+	Go Retract_Safe
+Fend
+
+Function Pick_Tray_Token
+	Print "Picking Token from Tray"
+	Go Pallet(1, TokenRow, TokenCol) +Z(50) CP
+	Move Pallet(1, TokenRow, TokenCol)
+	On 8
+	Wait .5
+	Move Pallet(1, TokenRow, TokenCol) +Z(50) CP
+Fend
+
+Function Place_Infeed_Token
+	Print "Placing Token in Infeed"
+	Go Pallet(2, 1, 2) +Z(50 + (TokenCol * TokenHeight)) CP
+	Move Pallet(2, 1, 2) +Z(TokenCol * TokenHeight)
+	Off 8
+	Wait .5
+	Move Pallet(2, 1, 2) +Z(50 + (TokenCol * TokenHeight)) CP
+Fend
+
+Function Pick_Tray_Block
+	Print "Picking Block from Tray"
+	Go Pallet(1, BlockRow, BlockCol) +Z(50) CP
+	Move Pallet(1, BlockRow, BlockCol)
+	On 8
+	Wait .5
+	Move Pallet(1, BlockRow, BlockCol) +Z(50) CP
+Fend
+
+Function Place_Infeed_Block
+	Print "Placing Block in Infeed"
+	Go Pallet(2, 1, 1) +Z(50 + (BlockCol * BlockHeight)) CP
+	Move Pallet(2, 1, 1) +Z(BlockCol * BlockHeight)
+	Off 8
+	Wait .5
+	Move Pallet(2, 1, 1) +Z(50 + (BlockCol * BlockHeight)) CP
+Fend
+
