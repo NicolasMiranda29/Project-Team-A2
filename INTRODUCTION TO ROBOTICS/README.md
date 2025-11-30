@@ -15,6 +15,7 @@ This repository contains the kinematic and (optionally) dynamic models for a cus
 <img width="499" height="494" alt="image" src="https://github.com/user-attachments/assets/89ffa2b1-af5e-40ec-b161-73b38fb10e99" />
 
 **schematic diagram**
+
 <img width="350" height="254" alt="image" src="https://github.com/user-attachments/assets/d9d7fd71-0db0-4773-9d31-973e87ea6c01" />
 
  
