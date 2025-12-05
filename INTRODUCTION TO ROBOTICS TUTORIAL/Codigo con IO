@@ -1,4 +1,4 @@
-Tokens
+Integer Tokens
 Integer Blocks
 Integer TokenRow
 Integer TokenCol
@@ -96,19 +96,29 @@ Fend
 Function Pick_Infeed_Token
 	Print "Picking Token from Infeed. Token ID = ", Tokens
 	Go Pallet(2, 1, 2) +Z(50 + (Blocks * BlockHeight)) CP
+	Check_Buttons()
 	Move Pallet(2, 1, 2) +Z(Tokens * TokenHeight)
+	Check_Buttons()
 	On 8
+	Check_Buttons()
 	Wait .5
+	Check_Buttons()
 	Move Pallet(2, 1, 2) +X(-1) +Z(50 + (Tokens * TokenHeight)) CP
+	Check_Buttons()
 Fend
 
 Function Pick_Infeed_Block
 	Print "Picking Block from Infeed. Block ID = ", Blocks
 	Go Pallet(2, 1, 1) +Z(50 + (Blocks * BlockHeight)) CP
+	Check_Buttons()
 	Move Pallet(2, 1, 1) +Z(Blocks * BlockHeight)
+	Check_Buttons()
 	On 8
+	Check_Buttons()
 	Wait .5
+	Check_Buttons()
 	Move Pallet(2, 1, 1) +X(-1) +Y(1) +Z(50 + (Blocks * BlockHeight)) CP
+	Check_Buttons()
 Fend
 
 Function Alignment_Token
