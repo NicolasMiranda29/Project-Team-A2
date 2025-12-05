@@ -95,6 +95,7 @@ Fend
 
 Function Pick_Infeed_Token
 	Print "Picking Token from Infeed. Token ID = ", Tokens
+	Check_Buttons()
 	Go Pallet(2, 1, 2) +Z(50 + (Blocks * BlockHeight)) CP
 	Check_Buttons()
 	Move Pallet(2, 1, 2) +Z(Tokens * TokenHeight)
@@ -109,6 +110,7 @@ Fend
 
 Function Pick_Infeed_Block
 	Print "Picking Block from Infeed. Block ID = ", Blocks
+	Check_Buttons()
 	Go Pallet(2, 1, 1) +Z(50 + (Blocks * BlockHeight)) CP
 	Check_Buttons()
 	Move Pallet(2, 1, 1) +Z(Blocks * BlockHeight)
@@ -186,6 +188,7 @@ Fend
 
 Function Place_Tray_Token
 	Print "Placing Token in Tray at Pallet"
+	Check_Buttons()
 	Go Pallet(1, TokenRow, TokenCol) +Z(100) CP
 	Check_Buttons()
 	Move Pallet(1, TokenRow, TokenCol) +Z(5)
