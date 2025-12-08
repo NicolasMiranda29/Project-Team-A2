@@ -1,0 +1,273 @@
+Integer Tokens
+Integer Blocks
+Integer TokenRow
+Integer TokenCol
+Integer BlockRow
+Integer BlockCol
+Real TokenHeight
+Real BlockHeight
+Real tElapsed   ' variable para tiempo
+
+Task Monitor
+
+Function Monitor
+    Do
+        ' --- STOP ---
+        If Sw(4) = Off Then
+            Print "STOP detectado. Parando..."
+            Halt main
+            Quit main
+        EndIf
+
+        ' --- PAUSE ---
+        If Sw(5) = On Then
+            Print "PAUSA"
+            Halt main
+        EndIf
+
+        ' --- CONTINUE ---
+        If Sw(6) = On Then
+            Print "CONTINUE"
+            Resume main
+        EndIf
+
+        ' --- RESET ---
+        If Sw(7) = On Then
+            Print "RESET"
+            Halt main
+            Quit main
+        EndIf
+
+        Wait 0.03    ' 30 ms → NO carga CPU y es instantáneo para el operario
+    Loop
+Fend
+
+' =========================
+' FUNCIÓN MAIN CON SUPERVISIÓN
+' =========================
+Function main
+
+    ' Iniciar supervisión paralela
+    StartTask Monitor
+    ' --- ESPERA DE START ---
+    Print "ESPERANDO START (Sw(0))..."
+    Wait Sw(0) = On      ' espera a que START esté presionado
+    Wait .2         ' debounce
+    Print "EJECUTANDO MAIN"
+
+    ' --- LLAMADA A MAIN ---
+ 
+	
+
+    ' =========================
+    ' CONFIGURACIÓN DEL ROBOT
+    ' =========================
+    Motor On
+    Power High
+    Speed 30
+    Accel 30, 30
+    SpeedS 1300
+    AccelS 5000
+    Tool 1
+
+    Tokens = 3
+    Blocks = 3
+    TokenHeight = 6.0
+    BlockHeight = 6.0
+
+    Pallet 1, Local_Tray_Base, P20, P21, 2, 3
+    Pallet 2, Local_Infeed, P23, P22, 1, 2
+
+    Integer TokenID
+    Integer BlockID
+
+    Go Retract_Safe
+
+    ' --- INICIO MEDICIÓN ---
+    TmReset 0   ' Reinicia el timer #0
+
+    ' =========================
+    ' BUCLE DE TOKENS
+    ' =========================
+    For TokenID = Tokens To 1 Step -1
+
+        ' --- BUCLE DE SUPERVISIÓN ---
+  
+
+        Pick_Infeed_Token()
+        Alignment_Token()
+
+        TokenRow = 2
+        TokenCol = TokenID
+        Place_Tray_Token
+
+    Next TokenID
+
+    ' =========================
+    ' BUCLE DE BLOCKS
+    ' =========================
+    For BlockID = Blocks To 1 Step -1
+
+        ' --- BUCLE DE SUPERVISIÓN ---
+
+        Pick_Infeed_Block()
+        Alignment_Block()
+
+        BlockRow = 1
+        BlockCol = BlockID
+        Place_Tray_Block
+
+    Next BlockID
+
+    ' --- FIN MEDICIÓN ---
+    tElapsed = Tmr(0)   ' Tiempo transcurrido en segundos
+    Home
+    Print "Tiempo total de ejecución = " + Str$(tElapsed) + " seconds"
+
+Fend
+
+
+Function Pick_Infeed_Token
+	Print "Picking Token from Infeed. Token ID = ", Tokens
+	Check_Buttons()
+	Go Pallet(2, 1, 2) +Z(50 + (Blocks * BlockHeight)) CP
+	Check_Buttons()
+	Move Pallet(2, 1, 2) +Z(Tokens * TokenHeight)
+	Check_Buttons()
+	On 8
+	Check_Buttons()
+	Wait .5
+	Check_Buttons()
+	Move Pallet(2, 1, 2) +X(-1) +Z(50 + (Tokens * TokenHeight)) CP
+	Check_Buttons()
+Fend
+
+Function Pick_Infeed_Block
+	Print "Picking Block from Infeed. Block ID = ", Blocks
+	Check_Buttons()
+	Go Pallet(2, 1, 1) +Z(50 + (Blocks * BlockHeight)) CP
+	Check_Buttons()
+	Move Pallet(2, 1, 1) +Z(Blocks * BlockHeight)
+	Check_Buttons()
+	On 8
+	Check_Buttons()
+	Wait .5
+	Check_Buttons()
+	Move Pallet(2, 1, 1) +X(-1) +Y(1) +Z(50 + (Blocks * BlockHeight)) CP
+	Check_Buttons()
+Fend
+
+Function Alignment_Token
+	Print "Aligning Token. Token ID = ", Tokens
+	Check_Buttons()
+	Go Align_Token +Z(20) CP
+	Check_Buttons()
+	Move Align_Token -Y(2) CP
+	Check_Buttons()
+	Off 8
+	Check_Buttons()
+	Move Align_Token -Y(2) +Z(5) CP
+	Check_Buttons()
+	On 10
+	Check_Buttons()
+	Wait .5
+	Move Align_Token -Y(2) +Z(5) CP
+	Check_Buttons()
+	Off 10
+	Check_Buttons()
+	Go Align_Token CP
+	Check_Buttons()
+	Move Align_Token
+	Check_Buttons()
+	On 8
+	Check_Buttons()
+	Wait .5
+	Check_Buttons()
+	Move Align_Token +Z(40) CP
+	Check_Buttons()
+Fend
+
+Function Alignment_Block
+	Print "Aligning Block. Block ID = ", Blocks
+	Check_Buttons()
+	Go Align_Block +Z(20) CP
+	Check_Buttons()
+	Move Align_Block -Y(2) -X(1) CP
+	Check_Buttons()
+	Off 8
+	Check_Buttons()
+	Move Align_Block -Y(2) -X(1) +Z(5) CP
+	Check_Buttons()
+	On 10
+	Check_Buttons()
+	Wait .5
+	Check_Buttons()
+	Move Align_Block -Y(2) -X(1) +Z(5) CP
+	Check_Buttons()
+    Off 10
+    Check_Buttons()
+	Move Align_Block CP
+	Check_Buttons()
+	Go Align_Block CP
+	Check_Buttons()
+	Move Align_Block
+	Check_Buttons()
+	On 8
+	Check_Buttons()
+	Wait .5
+	Check_Buttons()
+	Move Align_Block +Z(80) CP
+	Check_Buttons()
+Fend
+
+Function Place_Tray_Token
+	Print "Placing Token in Tray at Pallet"
+	Check_Buttons()
+	Go Pallet(1, TokenRow, TokenCol) +Z(100) CP
+	Check_Buttons()
+	Move Pallet(1, TokenRow, TokenCol) +Z(5)
+	Off 8
+	Check_Buttons()
+	Wait .5
+	Move Pallet(1, TokenRow, TokenCol) +Z(50) CP
+	Check_Buttons()
+	Tokens = Tokens - 1
+Fend
+
+Function Place_Tray_Block
+	Print "Placing Block in Tray at Pallet(2)"
+	Check_Buttons()
+	Go Pallet(1, BlockRow, BlockCol) +Z(100) CP
+	Check_Buttons()
+	Move Pallet(1, BlockRow, BlockCol) +Z(5)
+	Check_Buttons()
+	Off 8
+	Check_Buttons()
+	Wait .5
+	Check_Buttons()
+	Move Pallet(1, BlockRow, BlockCol) +Z(50) CP
+	Check_Buttons()
+	Blocks = Blocks - 1
+	Check_Buttons()
+Fend
+Function Check_Buttons
+    If Sw(4) = Off Then       ' STOP
+        Halt main
+        Quit main
+        Exit Function
+    EndIf
+
+    If Sw(5) = On Then       ' PAUSE
+        Halt main
+    EndIf
+
+    If Sw(6) = On Then       ' CONTINUE
+        Resume main
+    EndIf
+
+    If Sw(7) = On Then       ' RESET
+        Halt main
+        Quit main
+        Exit Function
+    EndIf
+Fend
