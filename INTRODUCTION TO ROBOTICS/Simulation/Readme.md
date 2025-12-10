@@ -44,13 +44,3 @@ The folder **`PPP_Robot_GUI`** contains the main functions:
 3. Run `gui_ppp_sim.m` to launch the graphical interface.  
 4. Explore the other scripts for kinematics, dynamics, and trajectory examples.  
 
----
-
-## 📸 Demo
-*(Add screenshots or GIFs here to showcase the GUI and robot simulation)*
-
----
-
-## 📜 License
-This project is released under the MIT License. Feel free to use and modify it for your own applications.
-
