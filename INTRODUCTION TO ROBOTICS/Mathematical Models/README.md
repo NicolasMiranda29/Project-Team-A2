@@ -33,7 +33,7 @@ The Jacobian relates joint velocities to the linear velocity of the end-effector
 
 ---
 
-## ⚙️ Dynamic Model (Optional)
+## ⚙️ Dynamic Model 
 
 For a simplified dynamic model (neglecting friction and coupling), using either the Newton-Euler or Lagrangian formulation:
 
@@ -47,7 +47,7 @@ Where:
 <img width="368" height="95" alt="image" src="https://github.com/user-attachments/assets/3539a1a7-109a-4b86-9d38-bbe5d135164f" />
 
 
-## 📁 Folder Structure (Suggested)
+## 📁 Folder Structure 
 PPP_Robot/
 ├── README.md
 
