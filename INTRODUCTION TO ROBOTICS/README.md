@@ -12,7 +12,7 @@ This repository contains the kinematic and (optionally) dynamic models for a cus
   - Second axis (**Y**) translates along the **X-axis** (horizontal motion)
   - Third axis (**X**) translates along the **Z-axis** (depth motion)
 
-<img width="499" height="494" alt="image" src="https://github.com/user-attachments/assets/89ffa2b1-af5e-40ec-b161-73b38fb10e99" />
+<img width="831" height="735" alt="ROBOT ASSEMBLY PICTURE" src="https://github.com/user-attachments/assets/f600ba6c-6cd9-43cf-9f89-0cebd7505950" />
 
 **schematic diagram**
 
