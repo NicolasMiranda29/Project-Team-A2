@@ -1,0 +1,117 @@
+Components & Design
+1. Main Controller
+Siemens S7-1200 PLC
+Model: CPU 1212C AC/DC/Relay (6ES7212-1HE40-0XB0)
+8 DI, 6 DO, expandable
+Reliable for industrial environment
+Expansion for Stepper/Servo Control (PTO Outputs)
+Siemens Signal Board SB 1231 (if you need extra AI)
+Siemens Pulse-train module not required → CPU1212C already supports PTO up to 100 kH
+
+2. Servo Motors + Drivers (for PPP axes)
+
+Payload 5 kg + 1 m horizontal travel requires servo motors, not steppers.
+X Axis (1 m travel)
+Servo motor: Delta ECMA-C20807RS (750 W, 3000 rpm)
+Driver: Delta ASDA-B2 series (Model: ASD-B2-0721-B)
+Transmission: HTD 5M belt, 25 mm wide OR ballscrew SFU1610
+Y Axis (1 m travel)
+Servo motor: Delta ECMA-C20604RS (400 W)
+Driver: Delta ASD-B2-0421-B (400 W driver)
+Transmission: HTD 5M belt, 20–25 mm width
+Z Axis (0.8–1 m vertical travel)
+Servo motor: Delta ECMA-C20807RS (750 W)
+Driver: Delta ASD-B2-0721-B
+Transmission: Ballscrew SFU1610 with BK/BF supports + linear guides
+
+3. Linear Motion Components (Mechanical, but essential electrically)
+Linear Guides
+Hiwin HGR20 rails (20 mm width)
+Blocks: HGW20CC (4 per axis)
+Ballscrews
+SFU1610 (16 mm dia, 10 mm pitch) for Z
+SFU1605 or HTD 5M belt drive for X & Y
+
+4. Sensors for Material Classification
+Metal Detection
+Inductive sensor: LJ12A3-4-Z/BX
+Type: PNP Normally Open
+Voltage: 10–30 VDC
+
+Plastic vs Paper Detection
+Capacitive sensor: LJC18A3-B-Z/BX
+Type: PNP Normally Open
+Voltage: 10–30 VDC
+
+Weight Measurement
+Load cell: 5 kg aluminum plate load cell
+Industrial amplifier: Waveshare Load Cell Amplifier 0–10 V output
+Output directly to PLC analog input (AI0)
+
+5. Gripper (Pneumatic)
+Parallel Pneumatic Gripper
+SMC MHZ2-20D
+Solenoid Valve
+SMC SY3120-5LZD-01
+Voltage: 24 VDC
+3-way, single solenoid
+Pneumatic Air Preparation
+SMC AF20-N02 (filter)
+SMC AR20-N02 (regulator)
+
+6. Power Supply System
+For PLC, sensors, valves (24 VDC bus)
+Meanwell LRS-350-24
+24 V
+14.6 A
+For servo drives (48 VDC bus)
+Meanwell RSP-750-48
+48 V
+60 A
+For load cell amplifier
+Same 24 V bus (it accepts 12–24 V)
+
+
+
+
+7. Safety Components
+Main Breaker
+Schneider GV2-ME10 (adjustable 6–10 A)
+
+Emergency Stop
+Schneider XALK178 mushroom E-stop
+
+Fuses
+5×20 mm fuse holders
+3A fuse for 24V logic
+10–15A fuse for servo power input
+Surge & Noise Protection
+Ferrite cores on all servo cables
+EMI filter: Schaffner FN2070-10-06
+
+8. Cables & Wiring
+Servo Motor Power Cables
+4-core shielded, 2.5 mm² (for 750 W)
+4-core shielded, 1.5 mm² (for 400 W)
+Length: Typically 8–10 m per axis
+
+
+Encoder/Signal Cables
+6-core shielded twisted pair
+0.5–0.75 mm²
+10 m per axis
+
+Sensor Cables
+3-wire shielded, 0.5 mm²
+5–10 m
+PLC Wiring
+Single core 0.75 mm² for DO/DI
+1.0	mm² for 24V distribution
+
+9. Electrical Enclosure Components
+Metal enclosure 600×400×200 mm (steel)
+DIN rails (2× 350 mm)
+Cable ducts
+24VDC terminal blocks (Weidmüller)
+Grounding bar
+Cooling fan 120mm + filter
