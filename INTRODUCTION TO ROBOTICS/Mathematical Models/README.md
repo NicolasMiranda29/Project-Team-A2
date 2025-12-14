@@ -66,6 +66,7 @@ PPP_Robot/
 
 
 ## Workspace
-<img width="474" height="425" alt="image" src="https://github.com/user-attachments/assets/ed1970de-5639-4122-ba22-46ae3408226f" />
+<img width="691" height="482" alt="image" src="https://github.com/user-attachments/assets/1e2a7663-ca04-4abe-bd07-93c96c0ea46c" />
+
 
  
