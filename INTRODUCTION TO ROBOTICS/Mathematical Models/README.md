@@ -1,4 +1,166 @@
 
+# Kinematic Structure
+
+## Robot Joints and Kinematic Structure
+The robot is designed as a **PPP manipulator**, meaning it has three prismatic joints arranged orthogonally.  
+This configuration enables simple translational motion in the three independent directions \((X, Y, Z)\), ensuring that the end-effector can reach any point within a rectangular workspace.
+
+### Reasoning for Design
+- Three prismatic joints were selected because they provide the minimum degrees of freedom required for full translational positioning in 3D space.  
+- The absence of rotational joints simplifies kinematic equations, avoids singularities, and reduces control complexity.  
+- This structure is ideal for pick-and-place tasks, material handling, and environments where end-effector orientation is fixed or non-critical.
+
+---
+
+## Joint Types, Axes, and Limits
+- **Joint 1 (\(q_1\))**: Prismatic along the Y axis (vertical). Critical due to gravitational load.  
+  Limits: \(q_1 \in [q_{1,\min}, q_{1,\max}]\).
+- **Joint 2 (\(q_2\))**: Prismatic along the X axis (horizontal). Provides lateral positioning.  
+  Limits: \(q_2 \in [q_{2,\min}, q_{2,\max}]\).
+- **Joint 3 (\(q_3\))**: Prismatic along the Z axis (depth). Provides forward/backward positioning.  
+  Limits: \(q_3 \in [q_{3,\min}, q_{3,\max}]\).
+
+---
+
+## Forward Kinematic Model
+**Frame assignments:**
+- Base frame \(\{0\}\) fixed at the origin.  
+- Frame \(\{1\}\) translates along Y.  
+- Frame \(\{2\}\) translates along X.  
+- Frame \(\{3\}\) translates along Z.  
+- End-effector frame attached to the gripper.  
+
+**End-effector position:**
+\[
+x = q_2, \quad y = q_1, \quad z = q_3
+\]
+
+**Homogeneous transformation:**
+\[
+T_{0\,EE} =
+\begin{bmatrix}
+1 & 0 & 0 & q_2 \\
+0 & 1 & 0 & q_1 \\
+0 & 0 & 1 & q_3 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\]
+
+---
+
+## Modified DH Parameters
+For a PPP robot:
+- All twist angles \(\alpha_i = 0\).  
+- All link lengths \(a_i = 0\).  
+- \(\theta_i\) values are constant.  
+- \(d_i\) corresponds to \(q_1, q_2, q_3\).
+
+---
+
+## Inverse Kinematic Model
+Direct IK:
+\[
+q_1 = y_d, \quad q_2 = x_d, \quad q_3 = z_d
+\]
+
+**Constraints:**
+\[
+q_i \in [q_{i,\min}, q_{i,\max}]
+\]
+
+Velocity and acceleration limits:
+\[
+|\dot{q}_i| \le \dot{q}_{i,\max}, \qquad |\ddot{q}_i| \le \ddot{q}_{i,\max}
+\]
+
+Gravity compensation on \(q_1\):
+\[
+F_{g,1} = m_{\mathrm{eff},1} \cdot g
+\]
+
+---
+
+## Extended Inverse Kinematic (IK) Model
+For PPP manipulators, orientation is fixed and motion is purely translational.  
+The IK solution is direct and exact.
+
+### Analytical Solution
+Given target \((x_d, y_d, z_d)\):
+\[
+q_1 = y_d, \qquad q_2 = x_d, \qquad q_3 = z_d
+\]
+
+This yields a closed-form, globally valid solution with no singularities.
+
+### Joint Priorities and Physical Considerations
+- **\(q_1\) (vertical axis):** Most critical due to gravitational load. Requires smoother trajectories and torque/force considerations.  
+- **\(q_2, q_3\) (horizontal axes):** Less restrictive, can sustain higher velocities and accelerations.  
+- Priorities may be implemented via weighted objective functions.
+
+### IK Constraints
+**Joint limits:**
+\[
+q_1 \in [q_{1,\min}, q_{1,\max}], \quad q_2 \in [q_{2,\min}, q_{2,\max}], \quad q_3 \in [q_{3,\min}, q_{3,\max}]
+\]
+
+**Velocity/acceleration limits:**
+\[
+|\dot{q}_i| \leq \dot{q}_{i,\max}, \qquad |\ddot{q}_i| \leq \ddot{q}_{i,\max}
+\]
+
+**Collision/safety:** Avoid operating near hard limits or obstacles; use safe margins.
+
+### Stability and Robustness
+- Filtering and anti-jitter (low-pass filters, spline interpolation).  
+- Soft saturations to avoid discontinuities.  
+- Task-space control stability: constant, full-rank Jacobian allows PID/PD with feedforward.  
+- Gravity compensation improves accuracy.
+
+---
+
+## Differential Kinematic Model
+Jacobian:
+\[
+J = \begin{bmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{bmatrix}, \quad
+x = [x,y,z]^T, \quad q = [q_1,q_2,q_3]^T
+\]
+
+**Velocities:**
+\[
+\dot{x} = J \dot{q}, \qquad \dot{q} = J^{-1}\dot{x}
+\]
+
+**Accelerations:**
+\[
+\ddot{x} = J \ddot{q}
+\]
+
+Since \(J\) is constant and full rank, inversion is stable.
+
+### Differential Control with Priorities
+Weighted mapping:
+\[
+W_x = \mathrm{diag}(w_x, w_y, w_z)
+\]
+
+### Limits and Stability
+- Saturate \(\dot{q}, \ddot{q}\) to respect actuator limits.  
+- Constant full-rank \(J\) ensures numerical stability.
+
+**Forward differential kinematics:**
+\[
+\dot{x} = J \dot{q}
+\]
+
+**Inverse differential kinematics:**
+\[
+\dot{q} = J^{-1} \dot{x}
+\]
+
 ## 📐 Direct Kinematic Model (DKM)
 
 ### 1. Input Variables
