@@ -18,3 +18,4 @@ This approach is widely adopted in industrial gantry and Cartesian robots due to
 	Gravity: g=9.81" " 〖"m/s" 〗^2.
 	Safety factors: SF_XY=3.0for X/Y peaks; SF_Z=6.0for Z (holding + safety).
 
+The results of the calculations and results are shown in images
