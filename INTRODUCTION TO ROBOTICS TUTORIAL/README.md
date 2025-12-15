@@ -6,7 +6,8 @@ We use a metal piece to create a wall to perform the alignment procedure
 
 
 <img width="580" height="608" alt="image" src="https://github.com/user-attachments/assets/56a867e9-b4df-4743-9555-9d9014171d48" />
-<img width="600" height="535" alt="image" src="https://github.com/user-attachments/assets/fb0b4513-15e8-4c48-9c3f-a90aa000ccb1" />
+<img width="521" height="488" alt="image" src="https://github.com/user-attachments/assets/d0ba86ec-ca7a-4058-92a7-8358e86863a9" />
+
 
 
 
