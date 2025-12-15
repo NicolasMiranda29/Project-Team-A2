@@ -1,0 +1,112 @@
+ENVT0100,LM:2025/12/09 04:54:50:735,DS:0000001406,CS:15698,MA:00-FF-78-1D-0C-CD,EI:           
+ProgramFile1 {
+	sName="stackingg.prg"
+	bOpened=True
+	nWinState=0
+	Window {
+		nLeft=6
+		nTop=11
+		nWidth=808
+		nHeight=668
+	}
+}
+ProgramFile2 {
+	sName="TCPIPdemo.prg"
+	bOpened=True
+	nWinState=0
+	Window {
+		nLeft=985
+		nTop=-6
+		nWidth=952
+		nHeight=724
+	}
+}
+nIncludeFileCount=0
+nPointFileCount=1
+PointFile1 {
+	sName="Points.pts"
+	bOpened=False
+	nWinState=0
+	Window {
+		nLeft=748
+		nTop=108
+		nWidth=930
+		nHeight=632
+	}
+}
+sActiveWindow="main.prg"
+CmdWindow {
+	bOpened=False
+	Window {
+		nLeft=0
+		nTop=0
+		nWidth=1034
+		nHeight=535
+	}
+	nWinState=0
+}
+RunWindow {
+	bOpened=False
+	Window {
+		nLeft=613
+		nTop=93
+		nWidth=717
+		nHeight=554
+	}
+}
+IOLabelEditor {
+	bOpened=False
+	Window {
+		nLeft=0
+		nTop=0
+		nWidth=1035
+		nHeight=539
+	}
+	nWinState=0
+}
+IOMonitor {
+	bOpened=False
+	Window {
+		nLeft=903
+		nTop=561
+		nWidth=520
+		nHeight=463
+	}
+}
+TaskMgr {
+	bOpened=False
+	Window {
+		nLeft=554
+		nTop=327
+		nWidth=464
+		nHeight=279
+	}
+}
+Macros {
+	bOpened=False
+	Window {
+		nLeft=0
+		nTop=0
+		nWidth=0
+		nHeight=0
+	}
+}
+RobotMgr {
+	bOpened=False
+	Window {
+		nLeft=541
+		nTop=6
+		nWidth=751
+		nHeight=486
+	}
+}
+UserErrorEditor {
+	bOpened=False
+	Window {
+		nLeft=0
+		nTop=0
+		nWidth=0
+		nHeight=0
+	}
+	nWinState=0
+}
