@@ -1,0 +1,95 @@
+Integer Tokens
+Integer Blocks
+Integer TokenRow
+Integer TokenCol
+Integer BlockRow
+Integer BlockCol
+Real TokenHeight
+Real BlockHeight
+Real tElapsed
+
+Function main
+
+    Motor On
+    Power High
+    Speed 100
+    Accel 30, 30
+    SpeedS 2000
+    AccelS 6000
+    Tool 1
+
+    Tokens = 10
+    Blocks = 10
+    TokenHeight = 6.0
+    BlockHeight = 6.0
+    Pallet 1, Local_Tray_Base, P20, P21, 1, 10   ' 1 fila, 10 columnas
+    Pallet 2, Local_Infeed, P23, P22, 1, 2
+
+    Integer PairID
+
+    Go Retract_Safe
+
+    TmReset 0   ' Reinicia el timer
+
+    For PairID = 1 To 10
+       
+        ' --- TOKEN ---
+        Pick_Infeed_Token()
+        Alignment_Token()
+        
+         ' --- BLOQUE ---
+        Pick_Infeed_Block()
+        Alignment_Block()
+        
+    Next PairID
+
+    tElapsed = Tmr(0)
+    Home
+    Print "Tiempo total de ejecución = " + Str$(tElapsed) + " seconds"
+
+Fend
+
+
+
+
+Function Pick_Infeed_Token
+	Print "Picking Token from Infeed. Token ID = ", Tokens
+	Go Pallet(2, 1, 2) +Y(4) +X(-1) +Z(50 + (Tokens * TokenHeight))
+	Move Pallet(2, 1, 2) +Y(4) +X(-1) +Z(1.8 + Tokens * TokenHeight) CP
+	On 8
+	Wait .5
+	Move Pallet(2, 1, 2) +Y(4) +X(-1) +Z(50 + (Tokens * TokenHeight)) CP
+Fend
+
+Function Pick_Infeed_Block
+	Print "Picking Block from Infeed. Block ID = ", Blocks
+	Go Pallet(2, 1, 1) +Z(50 + (Blocks * BlockHeight))
+	Move Pallet(2, 1, 1) +Z(Blocks * BlockHeight) CP
+	On 8
+	Wait .5
+	Move Pallet(2, 1, 1) +X(-1) +Y(1) +Z(50 + (Blocks * BlockHeight))
+Fend
+
+Function Alignment_Block
+	Print "Aligning Token. Token ID = ", Tokens
+	Go Align_Token +Z(40 + ((20) - (Blocks + Tokens - 1)) * BlockHeight)
+	Move Align_Token +Z(2 + ((20) - (Blocks + Tokens - 1)) * BlockHeight) CP
+	Go Align_Token +Z(2 + ((20) - (Blocks + Tokens - 1)) * BlockHeight) CP
+    Wait 0.5
+	Off 8
+	Wait 0.2
+	Move Align_Token +Z(40 + ((20) - (Blocks + Tokens - 1)) * BlockHeight)
+    Blocks = Blocks - 1
+Fend
+Function Alignment_Token
+	Print "Aligning Token. Token ID = ", Tokens
+	Go Align_Token +Z(40 + ((20) - (Blocks + Tokens - 1)) * BlockHeight) CP
+	Move Align_Token +Z(2 + ((20) - (Blocks + Tokens - 1)) * BlockHeight) CP
+	Go Align_Token +Z(2 + ((20) - (Blocks + Tokens - 1)) * BlockHeight) CP
+    Wait 0.5
+	Off 8
+	Wait 0.2
+	Move Align_Token +Z(40 + ((20) - (Blocks + Tokens - 1)) * BlockHeight)
+	Tokens = Tokens - 1
+Fend
+
