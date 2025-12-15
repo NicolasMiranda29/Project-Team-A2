@@ -1,4 +1,4 @@
-Part 4: Dynamic Analysis and Joint Torque Requirements
+# A first-level heading **Part 4: Dynamic Analysis and Joint Torque Requirements**
 
 Modeling Method
 The dynamic modeling of the PPP Cartesian robot is carried out using a Newton–Euler formulation applied independently to each prismatic axis. Due to the orthogonal and decoupled structure of the Cartesian robot, coupling terms between axes are negligible, allowing each joint to be modeled as a translational mass subjected to inertial, gravitational, frictional, and external forces.
