@@ -1,5 +1,7 @@
 # Task3
 
+This is about serving a traditional Paraguayan Tea the "Terere"
+
 <img width="655" height="867" alt="image" src="https://github.com/user-attachments/assets/fa712f0e-afb5-401b-aec0-5f34a73bac27" />
 
 <img width="661" height="877" alt="image" src="https://github.com/user-attachments/assets/d3b79010-2442-4213-bb86-768d855fd820" />
