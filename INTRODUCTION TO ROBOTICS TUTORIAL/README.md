@@ -21,3 +21,4 @@ We use a metal piece to create a wall to perform the alignment procedure
 
 
 <h1>Task 3<h1>
+<img width="662" height="874" alt="image" src="https://github.com/user-attachments/assets/ae57fe2f-a807-4e1d-bb2f-75e121207c23" />
